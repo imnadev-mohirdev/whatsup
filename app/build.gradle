@@ -47,5 +47,6 @@ dependencies {
 
     implementation "io.insert-koin:koin-android:3.2.2"
 
+    implementation("com.github.terrakok:cicerone:7.1")
 
 }
