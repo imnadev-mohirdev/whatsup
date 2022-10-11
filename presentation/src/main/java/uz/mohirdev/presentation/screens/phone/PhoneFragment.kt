@@ -2,7 +2,7 @@ package uz.mohirdev.presentation.screens.phone
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mohirdev.domain.model.User
 import uz.mohirdev.presentation.base.BaseFragment
 import uz.mohirdev.presentation.databinding.FragmentPhoneBinding
@@ -10,7 +10,7 @@ import uz.mohirdev.presentation.screens.phone.PhoneViewModel.Effect
 
 class PhoneFragment : BaseFragment<FragmentPhoneBinding>(FragmentPhoneBinding::inflate) {
 
-    private lateinit var viewModel : PhoneViewModel
+    private val viewModel : PhoneViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
