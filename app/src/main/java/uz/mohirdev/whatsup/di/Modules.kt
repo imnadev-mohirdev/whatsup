@@ -20,6 +20,7 @@ import uz.mohirdev.domain.usecase.auth.SendSmsCodeUseCase
 import uz.mohirdev.domain.usecase.settings.GetOnboardedUseCase
 import uz.mohirdev.domain.usecase.settings.OnboardedUseCase
 import uz.mohirdev.presentation.screens.main.MainViewModel
+import uz.mohirdev.presentation.screens.onboarding.OnboardingViewModel
 import uz.mohirdev.presentation.screens.phone.PhoneViewModel
 
 private val cicerone = Cicerone.create()
@@ -55,5 +56,6 @@ val remoteModule = module {
 
 val viewModelModule = module {
     viewModel { PhoneViewModel(get()) }
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
+    viewModel { OnboardingViewModel(get(), get()) }
 }

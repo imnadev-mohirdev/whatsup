@@ -7,4 +7,5 @@ class OnboardedUseCase(
 ) {
 
     operator fun invoke() = settingsRepository.onboarded()
+
 }
