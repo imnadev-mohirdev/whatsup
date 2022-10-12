@@ -2,7 +2,7 @@ package uz.mohirdev.domain.usecase.auth
 
 import uz.mohirdev.domain.repo.AuthRepository
 
-class SendSmsCodeUseCase constructor(
+class SendSmsCodeUseCase(
     private val authRepository: AuthRepository
 ) {
 
