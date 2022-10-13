@@ -1,6 +1,5 @@
 package uz.mohirdev.whatsup.di
 
-import android.app.Activity
 import com.github.terrakok.cicerone.Cicerone
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
@@ -20,13 +19,12 @@ import uz.mohirdev.domain.repo.AuthRepository
 import uz.mohirdev.domain.repo.SettingsRepository
 import uz.mohirdev.domain.usecase.auth.SendSmsCodeUseCase
 import uz.mohirdev.domain.usecase.auth.VerifyCodeUseCase
-import uz.mohirdev.domain.usecase.settings.GetOnboardedUseCase
+import uz.mohirdev.domain.usecase.settings.GetInitialScreenUseCase
 import uz.mohirdev.domain.usecase.settings.OnboardedUseCase
 import uz.mohirdev.presentation.screens.code.CodeViewModel
 import uz.mohirdev.presentation.screens.main.MainViewModel
 import uz.mohirdev.presentation.screens.onboarding.OnboardingViewModel
 import uz.mohirdev.presentation.screens.phone.PhoneViewModel
-import java.lang.ref.WeakReference
 
 private val cicerone = Cicerone.create()
 
@@ -48,7 +46,7 @@ val repositoryModule = module {
 val useCaseModule = module {
     single { SendSmsCodeUseCase(get()) }
     single { OnboardedUseCase(get()) }
-    single { GetOnboardedUseCase(get()) }
+    single { GetInitialScreenUseCase(get(), get()) }
     single { VerifyCodeUseCase(get()) }
 }
 
