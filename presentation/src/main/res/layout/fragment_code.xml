@@ -15,6 +15,7 @@
         />
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TextAppearance.MaterialComponents.Subtitle2"
@@ -50,7 +51,7 @@
         app:width="40dp"
         app:bar_enabled="true"
         app:bar_height="2dp"
-        app:length="5"
+        app:length="6"
         app:otp_text_size="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"

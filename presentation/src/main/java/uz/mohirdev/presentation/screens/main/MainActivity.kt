@@ -7,6 +7,7 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.mohirdev.domain.model.ActivityHolder
 import uz.mohirdev.presentation.R
 import uz.mohirdev.presentation.databinding.ActivityMainBinding
 
@@ -17,6 +18,7 @@ class MainActivity : FragmentActivity() {
 
     private val navigator = AppNavigator(this, R.id.container)
     private val navigatorHolder: NavigatorHolder by inject()
+    private val activityHolder: ActivityHolder by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,8 @@ class MainActivity : FragmentActivity() {
         viewModel
 
         installSplashScreen()
+
+        activityHolder.activity = this
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

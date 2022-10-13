@@ -4,10 +4,13 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import io.reactivex.rxjava3.core.Completable
+import uz.mohirdev.domain.model.ActivityHolder
 import uz.mohirdev.domain.model.InvalidCredentialsException
 import java.util.concurrent.TimeUnit
 
-class AuthFirebaseImpl : AuthFirebase {
+class AuthFirebaseImpl(
+    private val activityHolder: ActivityHolder
+) : AuthFirebase {
 
     private val auth = FirebaseAuth.getInstance()
 
@@ -36,6 +39,7 @@ class AuthFirebaseImpl : AuthFirebase {
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phone)
             .setTimeout(60L, TimeUnit.SECONDS)
+            .setActivity(activityHolder.activity)
             .setCallbacks(callbacks)
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
