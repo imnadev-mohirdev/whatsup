@@ -17,6 +17,7 @@ import uz.mohirdev.data.repo.SettingsRepositoryImpl
 import uz.mohirdev.domain.repo.AuthRepository
 import uz.mohirdev.domain.repo.SettingsRepository
 import uz.mohirdev.domain.usecase.auth.SendSmsCodeUseCase
+import uz.mohirdev.domain.usecase.auth.VerifyCodeUseCase
 import uz.mohirdev.domain.usecase.settings.GetOnboardedUseCase
 import uz.mohirdev.domain.usecase.settings.OnboardedUseCase
 import uz.mohirdev.presentation.screens.main.MainViewModel
@@ -43,6 +44,7 @@ val useCaseModule = module {
     single { SendSmsCodeUseCase(get()) }
     single { OnboardedUseCase(get()) }
     single { GetOnboardedUseCase(get()) }
+    single { VerifyCodeUseCase(get()) }
 }
 
 val localModule = module {
