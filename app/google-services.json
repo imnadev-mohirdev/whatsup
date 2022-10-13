@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "14514382024",
+    "project_id": "messenger-baf1c",
+    "storage_bucket": "messenger-baf1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14514382024:android:a54c559fccdca7a21ef1fd",
+        "android_client_info": {
+          "package_name": "uz.mohirdev.whatsup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14514382024-egr8f6etckhaghk17vsr035sm52e68e8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uz.mohirdev.whatsup",
+            "certificate_hash": "da8856f87de40c5589790c9c59cadd96f6e8fe39"
+          }
+        },
+        {
+          "client_id": "14514382024-i5ljabikh0gtbaka9r8lurnl9mm8oper.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj2HN0gmI1XEjmlhocbiuPaSneFG30IXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14514382024-i5ljabikh0gtbaka9r8lurnl9mm8oper.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
