@@ -12,6 +12,8 @@ import uz.mohirdev.data.local.user.UserStorage
 import uz.mohirdev.data.local.user.UserStorageImpl
 import uz.mohirdev.data.remote.auth.AuthFirebase
 import uz.mohirdev.data.remote.auth.AuthFirebaseImpl
+import uz.mohirdev.data.remote.users.UsersFirestore
+import uz.mohirdev.data.remote.users.UsersFirestoreImpl
 import uz.mohirdev.data.repo.AuthRepositoryImpl
 import uz.mohirdev.data.repo.SettingsRepositoryImpl
 import uz.mohirdev.domain.model.ActivityHolder
@@ -39,7 +41,7 @@ val appModule = module {
 }
 
 val repositoryModule = module {
-    single<AuthRepository> { AuthRepositoryImpl(get()) }
+    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     single<SettingsRepository> { SettingsRepositoryImpl(get()) }
 }
 
@@ -57,6 +59,7 @@ val localModule = module {
 
 val remoteModule = module {
     single<AuthFirebase> { AuthFirebaseImpl(get()) }
+    single<UsersFirestore> { UsersFirestoreImpl() }
 }
 
 val viewModelModule = module {
