@@ -50,7 +50,13 @@ class ChatViewModel(
         }.subscribe()
 
     private fun getMessages() = getMessagesUseCase(current.chat!!.user.id)
-        .doOnNext { messages ->
+        .doOnSubscribe {
+            updateState { it.copy(loading = true) }
+        }.doOnEach {
+            updateState { it.copy(loading = false) }
+        }.doOnError {
+            emitEffect(Effect.ErrorGetting)
+        }.doOnNext { messages ->
             updateState { it.copy(messages = messages) }
         }.subscribe()
 }

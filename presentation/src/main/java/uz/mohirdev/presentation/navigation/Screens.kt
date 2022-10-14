@@ -14,5 +14,5 @@ object Screens {
     fun OnboardingScreen() = FragmentScreen { OnboardingFragment() }
     fun CodeScreen(phone: String) = FragmentScreen { CodeFragment(phone) }
     fun HomeScreen() = FragmentScreen { HomeFragment() }
-    fun ChatScreen(chat: Chat) = FragmentScreen("Chat_$chat") { ChatFragment(chat) }
+    fun ChatScreen(chat: Chat) = FragmentScreen { ChatFragment(chat) }
 }
