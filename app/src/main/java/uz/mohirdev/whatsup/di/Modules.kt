@@ -15,15 +15,19 @@ import uz.mohirdev.data.remote.auth.AuthFirebaseImpl
 import uz.mohirdev.data.remote.users.UsersFirestore
 import uz.mohirdev.data.remote.users.UsersFirestoreImpl
 import uz.mohirdev.data.repo.AuthRepositoryImpl
+import uz.mohirdev.data.repo.ChatRepositoryImpl
 import uz.mohirdev.data.repo.SettingsRepositoryImpl
 import uz.mohirdev.domain.model.ActivityHolder
 import uz.mohirdev.domain.repo.AuthRepository
+import uz.mohirdev.domain.repo.ChatRepository
 import uz.mohirdev.domain.repo.SettingsRepository
 import uz.mohirdev.domain.usecase.auth.SendSmsCodeUseCase
 import uz.mohirdev.domain.usecase.auth.VerifyCodeUseCase
+import uz.mohirdev.domain.usecase.chat.GetChatsUseCase
 import uz.mohirdev.domain.usecase.settings.GetInitialScreenUseCase
 import uz.mohirdev.domain.usecase.settings.OnboardedUseCase
 import uz.mohirdev.presentation.screens.code.CodeViewModel
+import uz.mohirdev.presentation.screens.home.HomeViewModel
 import uz.mohirdev.presentation.screens.main.MainViewModel
 import uz.mohirdev.presentation.screens.onboarding.OnboardingViewModel
 import uz.mohirdev.presentation.screens.phone.PhoneViewModel
@@ -43,6 +47,7 @@ val appModule = module {
 val repositoryModule = module {
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     single<SettingsRepository> { SettingsRepositoryImpl(get()) }
+    single<ChatRepository> { ChatRepositoryImpl(get()) }
 }
 
 val useCaseModule = module {
@@ -50,6 +55,7 @@ val useCaseModule = module {
     single { OnboardedUseCase(get()) }
     single { GetInitialScreenUseCase(get(), get()) }
     single { VerifyCodeUseCase(get()) }
+    single { GetChatsUseCase(get()) }
 }
 
 val localModule = module {
@@ -67,4 +73,5 @@ val viewModelModule = module {
     viewModel { MainViewModel(get(), get()) }
     viewModel { OnboardingViewModel(get(), get()) }
     viewModel { CodeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get()) }
 }

@@ -1,11 +1,9 @@
 package uz.mohirdev.presentation.screens.phone
 
 import com.github.terrakok.cicerone.Router
-import uz.mohirdev.domain.model.User
 import uz.mohirdev.domain.usecase.auth.SendSmsCodeUseCase
 import uz.mohirdev.presentation.base.BaseViewModel
 import uz.mohirdev.presentation.navigation.Screens.CodeScreen
-import uz.mohirdev.presentation.screens.code.CodeFragment
 import uz.mohirdev.presentation.screens.phone.PhoneViewModel.*
 
 class PhoneViewModel constructor(
