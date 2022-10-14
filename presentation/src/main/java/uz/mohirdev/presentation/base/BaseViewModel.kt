@@ -15,7 +15,7 @@ abstract class BaseViewModel<State : Any, Input : Any, Effect : Any> : ViewModel
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
 
-    val current: State get() = state.blockingFirst()
+    val current: State get() = stateSubject.blockingFirst()
 
     private val effectsSubject = PublishSubject.create<Effect>()
     val effects : Observable<Effect> get() = effectsSubject
