@@ -8,7 +8,7 @@ import uz.mohirdev.domain.model.Chat
 import uz.mohirdev.presentation.R
 import uz.mohirdev.presentation.databinding.ItemChatBinding
 
-class ChatAdapter(private val chats: List<Chat>) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
+class ChatAdapter(private val chats: List<Chat>, private val onClick: (user: Chat) -> Unit) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -16,6 +16,9 @@ class ChatAdapter(private val chats: List<Chat>) : RecyclerView.Adapter<ChatAdap
             Glide.with(root).load(R.drawable.ic_person).into(avatar)
             name.text = chat.user.name
             last.text = chat.user.phone
+            root.setOnClickListener {
+                onClick(chat)
+            }
         }
     }
 
