@@ -30,6 +30,7 @@ import uz.mohirdev.domain.usecase.chat.GetMessagesUseCase
 import uz.mohirdev.domain.usecase.chat.SendMessageUseCase
 import uz.mohirdev.domain.usecase.settings.GetInitialScreenUseCase
 import uz.mohirdev.domain.usecase.settings.OnboardedUseCase
+import uz.mohirdev.presentation.screens.chat.ChatViewModel
 import uz.mohirdev.presentation.screens.code.CodeViewModel
 import uz.mohirdev.presentation.screens.home.HomeViewModel
 import uz.mohirdev.presentation.screens.main.MainViewModel
@@ -80,5 +81,6 @@ val viewModelModule = module {
     viewModel { MainViewModel(get(), get()) }
     viewModel { OnboardingViewModel(get(), get()) }
     viewModel { CodeViewModel(get(), get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get()) }
+    viewModel { ChatViewModel(get(), get()) }
 }

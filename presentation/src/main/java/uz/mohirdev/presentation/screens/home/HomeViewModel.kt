@@ -1,12 +1,15 @@
 package uz.mohirdev.presentation.screens.home
 
+import com.github.terrakok.cicerone.Router
 import uz.mohirdev.domain.model.Chat
 import uz.mohirdev.domain.usecase.chat.GetChatsUseCase
 import uz.mohirdev.presentation.base.BaseViewModel
+import uz.mohirdev.presentation.navigation.Screens.ChatScreen
 import uz.mohirdev.presentation.screens.home.HomeViewModel.*
 
 class HomeViewModel(
-    private val getChatsUseCase: GetChatsUseCase
+    private val getChatsUseCase: GetChatsUseCase,
+    private val router: Router
 ) : BaseViewModel<State, Input, Effect>() {
 
     init {
@@ -21,6 +24,7 @@ class HomeViewModel(
 
     sealed class Input {
         object GetChats : Input()
+        data class Open(val chat: Chat) : Input()
     }
 
     class Effect
@@ -28,9 +32,14 @@ class HomeViewModel(
     override fun getDefaultState() = State()
 
     override fun processInput(input: Input) {
-        when(input) {
+        when (input) {
             Input.GetChats -> getChats()
+            is Input.Open -> open(input.chat)
         }
+    }
+
+    private fun open(chat: Chat) {
+        router.navigateTo(ChatScreen(chat))
     }
 
     private fun getChats() = getChatsUseCase()
