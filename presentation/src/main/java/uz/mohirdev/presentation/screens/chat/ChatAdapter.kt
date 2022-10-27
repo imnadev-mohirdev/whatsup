@@ -5,10 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import uz.mohirdev.domain.model.Message
 import uz.mohirdev.domain.model.Type
+import uz.mohirdev.presentation.databinding.ItemImageUploadChatBinding
 import uz.mohirdev.presentation.databinding.ItemTextInChatBinding
 import uz.mohirdev.presentation.databinding.ItemTextOutChatBinding
+import uz.mohirdev.presentation.util.dp
 
 class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF_UTIL) {
 
@@ -25,6 +30,14 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF_UTIL) {
 
         fun bind(message: Message) = with(binding) {
             root.text = message.message
+        }
+    }
+
+    inner class ImageUploadHolder(private val binding: ItemImageUploadChatBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(message: Message) = with(binding) {
+            Glide.with(root).load(message.imageUri).into(image)
         }
     }
 
@@ -48,6 +61,9 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF_UTIL) {
             Type.text_out -> TextOutViewHolder(
                 ItemTextOutChatBinding.inflate(inflater, parent, false)
             )
+            Type.image_upload -> ImageUploadHolder(
+                ItemImageUploadChatBinding.inflate(inflater, parent, false)
+            )
         }
     }
 
@@ -55,6 +71,7 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF_UTIL) {
         when (holder) {
             is TextInViewHolder -> holder.bind(getItem(position))
             is TextOutViewHolder -> holder.bind(getItem(position))
+            is ImageUploadHolder -> holder.bind(getItem(position))
         }
     }
 

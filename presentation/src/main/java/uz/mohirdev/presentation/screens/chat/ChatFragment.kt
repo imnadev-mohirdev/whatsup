@@ -2,6 +2,7 @@ package uz.mohirdev.presentation.screens.chat
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.mohirdev.domain.model.Chat
 import uz.mohirdev.domain.model.Message
@@ -37,6 +38,15 @@ class ChatFragment(
             viewModel.processInput(Input.SendMessage(message.text.toString()))
             message.text = null
         }
+
+        gallery.setOnClickListener {
+            galleryLauncher.launch("image/*")
+        }
         messages.adapter = adapter
+    }
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        it ?: return@registerForActivityResult
+        viewModel.processInput(Input.SendImage(it))
     }
 }

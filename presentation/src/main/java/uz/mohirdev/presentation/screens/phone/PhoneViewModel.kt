@@ -40,5 +40,5 @@ class PhoneViewModel constructor(
             router.navigateTo(CodeScreen(phone))
         }.doFinally {
             updateState { it.copy(loading = false) }
-        }.subscribe()
+        }.subscribe({}, {})
 }
