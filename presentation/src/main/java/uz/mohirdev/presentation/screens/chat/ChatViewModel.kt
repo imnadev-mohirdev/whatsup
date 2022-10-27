@@ -1,11 +1,14 @@
 package uz.mohirdev.presentation.screens.chat
 
+import android.net.Uri
 import uz.mohirdev.domain.model.Chat
 import uz.mohirdev.domain.model.Message
+import uz.mohirdev.domain.model.Type
 import uz.mohirdev.domain.usecase.chat.GetMessagesUseCase
 import uz.mohirdev.domain.usecase.chat.SendMessageUseCase
 import uz.mohirdev.presentation.base.BaseViewModel
 import uz.mohirdev.presentation.screens.chat.ChatViewModel.*
+import java.util.*
 
 class ChatViewModel(
     private val sendMessageUseCase: SendMessageUseCase,
@@ -21,6 +24,7 @@ class ChatViewModel(
     sealed class Input {
         object GetMessages : Input()
         data class SendMessage(val message: String) : Input()
+        data class SendImage(val image: Uri) : Input()
         data class SetChat(val chat: Chat) : Input()
     }
 
@@ -36,7 +40,15 @@ class ChatViewModel(
             Input.GetMessages -> getMessages()
             is Input.SendMessage -> sendMessage(input.message)
             is Input.SetChat -> setChat(input.chat)
+            is Input.SendImage -> sendImage(input.image)
         }
+    }
+
+    private fun sendImage(image: Uri) {
+        val message = Message(id = image.toString(), time = Date(), type = Type.image_upload, imageUri = image)
+        val messages = current.messages.toMutableList()
+        messages.add(message)
+        updateState { it.copy(messages = messages) }
     }
 
     private fun setChat(chat: Chat) {
@@ -47,7 +59,7 @@ class ChatViewModel(
     private fun sendMessage(message: String) = sendMessageUseCase(current.chat!!.user.id, message)
         .doOnError {
             emitEffect(Effect.ErrorSending)
-        }.subscribe()
+        }.subscribe({}, {})
 
     private fun getMessages() = getMessagesUseCase(current.chat!!.user.id)
         .doOnSubscribe {
@@ -58,5 +70,5 @@ class ChatViewModel(
             emitEffect(Effect.ErrorGetting)
         }.doOnNext { messages ->
             updateState { it.copy(messages = messages) }
-        }.subscribe()
+        }.subscribe({}, {})
 }
