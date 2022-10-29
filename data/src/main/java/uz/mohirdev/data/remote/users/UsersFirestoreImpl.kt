@@ -3,6 +3,7 @@ package uz.mohirdev.data.remote.users
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import uz.mohirdev.data.remote.users.model.UserDocument
@@ -13,18 +14,22 @@ class UsersFirestoreImpl : UsersFirestore {
 
     override fun saveUser(user: FirebaseUser) : Completable = Completable.create { emitter ->
 
-        val data = UserDocument(
-            id = user.uid,
-            phone = user.phoneNumber,
-            name = "AnonymousUser" + user.phoneNumber?.takeLast(4),
-            avatar = null
-        )
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { token ->
+            val data = UserDocument(
+                id = user.uid,
+                phone = user.phoneNumber,
+                name = "AnonymousUser" + user.phoneNumber?.takeLast(4),
+                avatar = null,
+                token = token.result
+            )
 
-        users.document(user.uid).set(data).addOnFailureListener {
-            emitter.onError(it)
-        }.addOnSuccessListener {
-            emitter.onComplete()
+            users.document(user.uid).set(data).addOnFailureListener {
+                emitter.onError(it)
+            }.addOnSuccessListener {
+                emitter.onComplete()
+            }
         }
+
     }
 
     override fun getUsers(): Single<List<UserDocument>> = Single.create { emitter ->
