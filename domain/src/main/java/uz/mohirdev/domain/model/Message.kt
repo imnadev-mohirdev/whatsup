@@ -8,9 +8,9 @@ data class Message(
     var message: String? = null,
     var time: Date,
     var type: Type,
-    var imageUri: Uri? = null
+    var image: Uri? = null
 )
 
 enum class Type {
-    text_in, text_out, image_upload
+    text_in, text_out, image_upload, image_in, image_out
 }

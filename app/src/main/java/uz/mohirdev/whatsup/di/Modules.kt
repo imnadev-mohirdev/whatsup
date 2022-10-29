@@ -12,6 +12,8 @@ import uz.mohirdev.data.local.user.UserStorage
 import uz.mohirdev.data.local.user.UserStorageImpl
 import uz.mohirdev.data.remote.auth.AuthFirebase
 import uz.mohirdev.data.remote.auth.AuthFirebaseImpl
+import uz.mohirdev.data.remote.files.ImageStorage
+import uz.mohirdev.data.remote.files.ImageStorageImpl
 import uz.mohirdev.data.remote.messages.MessagesFirestore
 import uz.mohirdev.data.remote.messages.MessagesFirestoreImpl
 import uz.mohirdev.data.remote.users.UsersFirestore
@@ -27,6 +29,7 @@ import uz.mohirdev.domain.usecase.auth.SendSmsCodeUseCase
 import uz.mohirdev.domain.usecase.auth.VerifyCodeUseCase
 import uz.mohirdev.domain.usecase.chat.GetChatsUseCase
 import uz.mohirdev.domain.usecase.chat.GetMessagesUseCase
+import uz.mohirdev.domain.usecase.chat.SendImageUseCase
 import uz.mohirdev.domain.usecase.chat.SendMessageUseCase
 import uz.mohirdev.domain.usecase.settings.GetInitialScreenUseCase
 import uz.mohirdev.domain.usecase.settings.OnboardedUseCase
@@ -52,7 +55,7 @@ val appModule = module {
 val repositoryModule = module {
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     single<SettingsRepository> { SettingsRepositoryImpl(get()) }
-    single<ChatRepository> { ChatRepositoryImpl(get(), get(), get()) }
+    single<ChatRepository> { ChatRepositoryImpl(get(), get(), get(), get()) }
 }
 
 val useCaseModule = module {
@@ -63,6 +66,7 @@ val useCaseModule = module {
     single { GetChatsUseCase(get()) }
     single { GetMessagesUseCase(get()) }
     single { SendMessageUseCase(get()) }
+    single { SendImageUseCase(get()) }
 }
 
 val localModule = module {
@@ -74,6 +78,7 @@ val remoteModule = module {
     single<AuthFirebase> { AuthFirebaseImpl(get()) }
     single<UsersFirestore> { UsersFirestoreImpl() }
     single<MessagesFirestore> { MessagesFirestoreImpl() }
+    single<ImageStorage> { ImageStorageImpl() }
 }
 
 val viewModelModule = module {
@@ -82,5 +87,5 @@ val viewModelModule = module {
     viewModel { OnboardingViewModel(get(), get()) }
     viewModel { CodeViewModel(get(), get()) }
     viewModel { HomeViewModel(get(), get()) }
-    viewModel { ChatViewModel(get(), get()) }
+    viewModel { ChatViewModel(get(), get(), get()) }
 }

@@ -1,5 +1,6 @@
 package uz.mohirdev.data.remote.messages
 
+import android.net.Uri
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import io.reactivex.rxjava3.core.Completable
@@ -28,6 +29,22 @@ class MessagesFirestoreImpl : MessagesFirestore {
             emitter.onComplete()
         }
     }
+
+    override fun sendMessage(fromUserId: String, toUserId: String, image: Uri): Completable =
+        Completable.create { emitter ->
+            val messageDocument = MessageDocument(
+                id = UUID.randomUUID().toString(),
+                image = image.toString(),
+                time = Date(),
+                members = listOf(fromUserId, toUserId).sorted().joinToString(),
+                from = fromUserId
+            )
+            messages.document(messageDocument.id!!).set(messageDocument).addOnFailureListener {
+                emitter.onError(it)
+            }.addOnSuccessListener {
+                emitter.onComplete()
+            }
+        }
 
     override fun getMessages(
         firstUserId: String,
